@@ -3,16 +3,16 @@
 <head>
 <title>Meet the Team - My Daily Reports</title>
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-height:1.6;}
+body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-height:1.6;text-align:center;}
 .container{max-width:1000px;margin:0 auto;padding:20px;}
 .hero{background:#1a1a1a;padding:60px 20px;text-align:center;border-bottom:2px solid #333;}
 .hero h1{font-size:2.5rem;color:#5a8fc0;margin:0;font-weight:bold;}
 .hero p{font-size:1.2rem;color:#ccc;margin:20px auto;max-width:600px;}
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;margin:60px 0;}
-.team-member{background:#2a2a2a;padding:40px;border-radius:8px;border-left:4px solid #e8742a;text-align:center;}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;margin:60px auto;max-width:1200px;}
+.team-member{background:#2a2a2a;padding:40px;border-radius:8px;border-left:4px solid #e8742a;text-align:left;}
 .team-member h2{color:#e8742a;margin:0 0 10px 0;font-size:1.5rem;}
 .team-member h3{color:#5a8fc0;margin:0 0 20px 0;font-size:1.1rem;font-weight:normal;}
-.team-member p{color:#ccc;text-align:left;}
+.team-member p{color:#ccc;}
 .founder{border-left-color:#5a8fc0;}
 .founder h2{color:#e8742a;}
 .founder h3{color:#5a8fc0;}
@@ -20,6 +20,8 @@ body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-heigh
 .btn:hover{background:#d6662a;}
 .back-link{color:#5a8fc0;text-decoration:none;font-size:1.1rem;}
 .back-link:hover{color:#e8742a;}
+.photo-placeholder{width:180px;height:220px;background:#333;border-radius:8px;border:3px solid #e8742a;display:flex;align-items:center;justify-content:center;color:#888;margin:20px auto 0 auto;}
+.founder .photo-placeholder{border-color:#5a8fc0;}
 @media(max-width:768px){.team-grid{grid-template-columns:1fr;}}
 </style>
 </head>
@@ -27,7 +29,7 @@ body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-heigh
 
 <div class="hero">
 <div class="container">
-<a href="bold-website.html" class="back-link">← Back to Home</a>
+<a href="/" class="back-link">← Back to Home</a>
 <h1>Meet the Team</h1>
 <p>The people behind My Daily Reports - built by inspectors, for inspectors</p>
 </div>
@@ -41,7 +43,7 @@ body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-heigh
 <h2>Jesse Saltzman</h2>
 <h3>Founder</h3>
 <p><strong>DSA Class 1 Inspector</strong> - Currently on 3 projects delivering $170+ million in work over the next 3 years.</p>
-<p><strong>Retired U.S. Marine, 1371 Combat Engineer</strong> - Responsible for managing construction projects from ranges on Camp Pendleton to forward operating bases in enemy territory.</p>
+<p><strong>Retired U.S. Marine, 1371 Combat Engineer</strong> - Responsible for managing construction projects from ranges on Camp Pendleton to forward operating bases in hostile environments.</p>
 <p>After years of spending evenings retyping inspection notes into reports, Jesse built the app that actually works for DSA inspectors.</p>
 </div>
 
@@ -61,38 +63,6 @@ body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-heigh
 <p>Ava combines her programming skills with understanding of what her dad actually needs in the field.</p>
 </div>
 
-</div>
-
-<!-- Team Photos Section -->
-<div style="margin:80px 0;">
-<h2 style="color:#5a8fc0;text-align:center;margin-bottom:40px;">Meet the Team</h2>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;max-width:800px;margin:0 auto;">
-
-<div style="text-align:center;">
-<div style="width:200px;height:250px;background:#333;border-radius:8px;border:3px solid #e8742a;display:flex;align-items:center;justify-content:center;color:#888;margin:0 auto 15px auto;">
-[Jesse's Photo]
-</div>
-<h3 style="color:#e8742a;margin:0;">Jesse Saltzman</h3>
-<p style="color:#5a8fc0;font-size:14px;margin:5px 0 0 0;">Founder</p>
-</div>
-
-<div style="text-align:center;">
-<div style="width:200px;height:250px;background:#333;border-radius:8px;border:3px solid #e8742a;display:flex;align-items:center;justify-content:center;color:#888;margin:0 auto 15px auto;">
-[Rachelle's Photo]
-</div>
-<h3 style="color:#e8742a;margin:0;">Rachelle Quidasol</h3>
-<p style="color:#5a8fc0;font-size:14px;margin:5px 0 0 0;">Customer Service & Operations</p>
-</div>
-
-<div style="text-align:center;">
-<div style="width:200px;height:250px;background:#333;border-radius:8px;border:3px solid #e8742a;display:flex;align-items:center;justify-content:center;color:#888;margin:0 auto 15px auto;">
-[Ava's Photo]
-</div>
-<h3 style="color:#e8742a;margin:0;">Ava Saltzman</h3>
-<p style="color:#5a8fc0;font-size:14px;margin:5px 0 0 0;">IT Developer & Tech Support</p>
-</div>
-
-</div>
 </div>
 
 <div style="background:#2a2a2a;padding:40px;border-radius:8px;text-align:center;margin:60px 0;">
