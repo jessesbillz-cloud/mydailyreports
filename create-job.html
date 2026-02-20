@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create Job - My Daily Reports</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-height:1.6;}
+.container{max-width:600px;margin:0 auto;padding:40px 20px;}
+.header{text-align:center;margin-bottom:40px;}
+.header img{width:80px;height:80px;margin-bottom:15px;}
+.header h1{color:#5a8fc0;font-size:2rem;margin:0;}
+.form-card{background:#2a2a2a;padding:40px;border-radius:8px;border-left:4px solid #5a8fc0;}
+.form-group{margin-bottom:25px;}
+.label{color:#ccc;font-weight:500;margin-bottom:8px;display:block;font-size:14px;}
+.input{width:100%;background:#333;color:#fff;border:1px solid #555;padding:12px;border-radius:6px;font-size:14px;box-sizing:border-box;}
+.input:focus{outline:none;border-color:#5a8fc0;}
+.team-section{background:#222;border:1px solid #333;border-radius:6px;padding:20px;margin:15px 0;}
+.team-member{display:flex;gap:15px;margin-bottom:15px;align-items:end;}
+.team-member input{flex:1;}
+.btn{background:#e8742a;color:#fff;padding:12px 24px;border:none;border-radius:6px;font-weight:600;cursor:pointer;}
+.btn:hover{background:#d6662a;}
+.btn-secondary{background:#5a8fc0;}
+.btn-secondary:hover{background:#4a7fb0;}
+.team-list{margin-top:20px;}
+.team-item{background:#333;padding:10px 15px;border-radius:4px;margin:5px 0;display:flex;justify-content:space-between;align-items:center;}
+.remove-btn{background:#e74c3c;color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;font-size:12px;}
+.url-display{background:#1a3a1a;border:2px solid #4a7c59;border-radius:6px;padding:20px;margin:20px 0;text-align:center;}
+.url-text{color:#4a7c59;font-weight:600;font-size:18px;margin:10px 0;}
+.copy-btn{background:#4a7c59;color:#fff;padding:8px 16px;border:none;border-radius:4px;cursor:pointer;margin:0 5px;}
+.success{background:#2c4a2c;color:#6bff6b;padding:15px;border-radius:6px;margin:20px 0;}
+.error{background:#4a2c2c;color:#ff6b6b;padding:15px;border-radius:6px;margin:20px 0;}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+<img src="image0-5.jpeg" alt="My Daily Reports Logo">
+<h1>Create Your Scheduling System</h1>
+</div>
+
+<div class="form-card">
+
+<div id="successMessage" class="success" style="display:none;"></div>
+<div id="errorMessage" class="error" style="display:none;"></div>
+
+<form id="jobForm">
+
+<div class="form-group">
+<label class="label">Project Name *</label>
+<input type="text" id="projectName" class="input" placeholder="e.g., Woodland Park Middle School" required>
+</div>
+
+<div class="form-group">
+<label class="label">Project Code *</label>
+<input type="text" id="projectCode" class="input" placeholder="e.g., WPMS" required>
+</div>
+
+<div class="form-group">
+<label class="label">General Contractor *</label>
+<input type="text" id="gcName" class="input" placeholder="e.g., Lusardi Construction" required>
+</div>
+
+<div class="form-group">
+<label class="label">Your Email (for notifications) *</label>
+<input type="email" id="inspectorEmail" class="input" placeholder="your.email@example.com" required>
+</div>
+
+<div class="team-section">
+<h3 style="color:#5a8fc0;margin:0 0 15px 0;">Team Members</h3>
+<p style="color:#888;font-size:13px;margin-bottom:15px;">Add team members who can submit inspection requests</p>
+
+<div class="team-member">
+<input type="text" id="memberName" class="input" placeholder="Name (e.g., Ron Davis)">
+<input type="email" id="memberEmail" class="input" placeholder="Email (e.g., rdavis@lusardi.com)">
+<button type="button" class="btn btn-secondary" onclick="addTeamMember()">Add</button>
+</div>
+
+<div id="teamList" class="team-list"></div>
+
+</div>
+
+<button type="submit" class="btn" style="width:100%;font-size:16px;padding:15px;">Create My Scheduling System</button>
+
+</form>
+
+<div id="urlDisplay" class="url-display" style="display:none;">
+<h3 style="color:#4a7c59;margin:0 0 15px 0;">🎉 Your Scheduling System is Ready!</h3>
+<p>Share this link with contractors to request inspections:</p>
+<div class="url-text" id="schedulingUrl"></div>
+<button class="copy-btn" onclick="copyUrl()">Copy Link</button>
+<button class="copy-btn" onclick="openSchedulingPage()">View Page</button>
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// Initialize Supabase client
+const supabase = window.supabase.createClient(
+    'YOUR_SUPABASE_URL',
+    'YOUR_SUPABASE_ANON_KEY'
+);
+
+let teamMembers = [];
+let currentUser = null;
+let createdJobId = null;
+
+// Check authentication on page load
+window.addEventListener('load', async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session) {
+        window.location.href = '/signup.html';
+        return;
+    }
+    
+    currentUser = session.user;
+    
+    // Pre-fill inspector email
+    document.getElementById('inspectorEmail').value = currentUser.email;
+});
+
+function showError(message) {
+    const errorEl = document.getElementById('errorMessage');
+    errorEl.textContent = message;
+    errorEl.style.display = 'block';
+    document.getElementById('successMessage').style.display = 'none';
+}
+
+function showSuccess(message) {
+    const successEl = document.getElementById('successMessage');
+    successEl.textContent = message;
+    successEl.style.display = 'block';
+    document.getElementById('errorMessage').style.display = 'none';
+}
+
+function addTeamMember() {
+    const name = document.getElementById('memberName').value.trim();
+    const email = document.getElementById('memberEmail').value.trim();
+    
+    if (!name || !email) {
+        showError('Please enter both name and email for team member');
+        return;
+    }
+    
+    // Check if email already exists
+    if (teamMembers.some(member => member.email === email)) {
+        showError('This email is already added');
+        return;
+    }
+    
+    teamMembers.push({ name, email });
+    
+    // Clear inputs
+    document.getElementById('memberName').value = '';
+    document.getElementById('memberEmail').value = '';
+    
+    renderTeamList();
+}
+
+function removeTeamMember(index) {
+    teamMembers.splice(index, 1);
+    renderTeamList();
+}
+
+function renderTeamList() {
+    const listEl = document.getElementById('teamList');
+    
+    if (teamMembers.length === 0) {
+        listEl.innerHTML = '<p style="color:#888;font-style:italic;">No team members added yet</p>';
+        return;
+    }
+    
+    listEl.innerHTML = teamMembers.map((member, index) => `
+        <div class="team-item">
+            <div>
+                <strong>${member.name}</strong><br>
+                <small style="color:#888;">${member.email}</small>
+            </div>
+            <button class="remove-btn" onclick="removeTeamMember(${index})">Remove</button>
+        </div>
+    `).join('');
+}
+
+// Generate URL-safe slug from name and DSA number
+function generateUserSlug() {
+    // For now, use email prefix. Later we'll add DSA number field
+    const emailPrefix = currentUser.email.split('@')[0];
+    return emailPrefix.toLowerCase().replace(/[^a-z0-9]/g, '-');
+}
+
+async function createJob(jobData) {
+    // Create job record
+    const { data: job, error: jobError } = await supabase
+        .from('user_jobs')
+        .insert({
+            user_id: currentUser.id,
+            project_name: jobData.projectName,
+            project_code: jobData.projectCode,
+            gc_name: jobData.gcName,
+            inspector_email: jobData.inspectorEmail,
+            active: true
+        })
+        .select()
+        .single();
+    
+    if (jobError) throw jobError;
+    
+    // Create team members
+    if (teamMembers.length > 0) {
+        const { error: teamError } = await supabase
+            .from('job_team_members')
+            .insert(
+                teamMembers.map(member => ({
+                    job_id: job.id,
+                    name: member.name,
+                    email: member.email
+                }))
+            );
+        
+        if (teamError) throw teamError;
+    }
+    
+    return job;
+}
+
+// Handle form submission
+document.getElementById('jobForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = {
+        projectName: document.getElementById('projectName').value.trim(),
+        projectCode: document.getElementById('projectCode').value.trim(),
+        gcName: document.getElementById('gcName').value.trim(),
+        inspectorEmail: document.getElementById('inspectorEmail').value.trim()
+    };
+    
+    // Validate
+    if (!formData.projectName || !formData.projectCode || !formData.gcName || !formData.inspectorEmail) {
+        showError('Please fill in all required fields');
+        return;
+    }
+    
+    try {
+        // Create job in database
+        const job = await createJob(formData);
+        createdJobId = job.id;
+        
+        // Generate scheduling URL
+        const userSlug = generateUserSlug();
+        const schedulingUrl = `${window.location.origin}/schedule/${userSlug}`;
+        
+        // Show success and URL
+        document.getElementById('schedulingUrl').textContent = schedulingUrl;
+        document.getElementById('urlDisplay').style.display = 'block';
+        document.getElementById('jobForm').style.display = 'none';
+        
+        showSuccess('Job created successfully! Your scheduling system is ready.');
+        
+    } catch (error) {
+        console.error('Error creating job:', error);
+        showError('Error creating job: ' + error.message);
+    }
+});
+
+function copyUrl() {
+    const url = document.getElementById('schedulingUrl').textContent;
+    navigator.clipboard.writeText(url).then(() => {
+        const btn = event.target;
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => {
+            btn.textContent = originalText;
+        }, 2000);
+    });
+}
+
+function openSchedulingPage() {
+    const url = document.getElementById('schedulingUrl').textContent;
+    window.open(url, '_blank');
+}
+
+// Initialize team list
+renderTeamList();
+</script>
+
+</body>
+</html>
