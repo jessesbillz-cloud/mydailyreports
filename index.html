@@ -1,103 +1,123 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Meet the Team - My Daily Reports</title>
+<title>My Daily Reports - Stop Wasting Hours on Reports Every Night</title>
+<meta name="description" content="DSA inspection app that saves you 2 hours every night. Built by Jesse Saltzman, DSA Class 1 Inspector and retired Marine.">
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-height:1.6;}
-.container{max-width:1000px;margin:0 auto;padding:20px;}
-.hero{background:#1a1a1a;padding:60px 20px;text-align:center;border-bottom:2px solid #333;}
-.hero h1{font-size:2.5rem;color:#5a8fc0;margin:0;font-weight:bold;}
-.hero p{font-size:1.2rem;color:#ccc;margin:20px auto;max-width:600px;}
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;margin:60px 0;}
-.team-member{background:#2a2a2a;padding:40px;border-radius:8px;border-left:4px solid #e8742a;text-align:center;}
-.team-member h2{color:#e8742a;margin:0 0 10px 0;font-size:1.5rem;}
-.team-member h3{color:#5a8fc0;margin:0 0 20px 0;font-size:1.1rem;font-weight:normal;}
-.team-member p{color:#ccc;text-align:left;}
-.founder{border-left-color:#5a8fc0;}
-.founder h2{color:#e8742a;}
-.founder h3{color:#5a8fc0;}
-.btn{background:#e8742a;color:#fff;padding:15px 30px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;margin-top:20px;}
+body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-height:1.6;text-align:center;}
+.hero{background:#111;padding:80px 20px;text-align:center;}
+.hero h1{font-size:3rem;color:#fff;margin:0;font-weight:bold;}
+.hero .tagline{font-size:1.4rem;color:#e8742a;margin:20px 0;font-weight:600;}
+.hero p{font-size:1.1rem;color:#ccc;max-width:600px;margin:0 auto 40px auto;}
+.btn{background:#e8742a;color:#fff;padding:18px 36px;text-decoration:none;border-radius:8px;font-weight:bold;font-size:1.1rem;display:inline-block;}
 .btn:hover{background:#d6662a;}
-.back-link{color:#5a8fc0;text-decoration:none;font-size:1.1rem;}
-.back-link:hover{color:#e8742a;}
-@media(max-width:768px){.team-grid{grid-template-columns:1fr;}}
+.container{max-width:1000px;margin:0 auto;padding:20px;}
+.split{display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:center;margin:60px auto;max-width:900px;text-align:left;}
+.split img{width:100%;border-radius:8px;}
+.problem{background:#2a2a2a;padding:40px;margin:40px auto;border-left:5px solid #e8742a;border-radius:8px;max-width:800px;text-align:left;}
+.problem h2{color:#5a8fc0;margin-top:0;}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin:40px auto;max-width:1000px;text-align:left;}
+.feature{background:#2a2a2a;padding:30px;border-radius:8px;border-left:4px solid #5a8fc0;}
+.feature h3{color:#e8742a;margin-top:0;}
+.jobsite{background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url('jobsite-1.jpg');background-size:cover;background-position:center;padding:80px 20px;text-align:center;color:#fff;}
+.price{font-size:4rem;color:#e8742a;font-weight:bold;text-align:center;margin:20px 0;}
+.nav{background:#1a1a1a;padding:15px 0;text-align:center;}
+.nav a{color:#5a8fc0;text-decoration:none;margin:0 20px;font-weight:500;}
+.nav a:hover{color:#e8742a;}
+@media(max-width:768px){.split{grid-template-columns:1fr;text-align:center;}.hero h1{font-size:2rem;}.hero .tagline{font-size:1.2rem;}}
 </style>
 </head>
 <body>
 
+<div class="nav">
+<a href="/">Home</a>
+<a href="team.html">Meet the Team</a>
+<a href="https://jessesbillz-cloud.github.io/saltzman-scheduling/wpms.html">Free Scheduling</a>
+</div>
+
 <div class="hero">
-<div class="container">
-<a href="bold-website.html" class="back-link">← Back to Home</a>
-<h1>Meet the Team</h1>
-<p>The people behind My Daily Reports - built by inspectors, for inspectors</p>
+<div style="text-align:center;margin-bottom:30px;">
+<img src="image0-5.jpeg" alt="My Daily Reports Logo" style="width:120px;height:120px;margin-bottom:15px;">
+<div style="font-size:28px;font-weight:bold;color:#5a8fc0;">My Daily Reports</div>
 </div>
+<h1>Stop Wasting Hours on Reports Every Night</h1>
+<p class="tagline">"Give me 5 minutes to set this up - how many hours a week at your computer? What is your time worth back to you?"</p>
+<p>Jesse Saltzman, DSA Class 1 Inspector and retired Marine, built the inspection app that actually works for DSA inspectors.</p>
+<a href="#" class="btn">Download Free Trial</a>
 </div>
 
 <div class="container">
 
-<div class="team-grid">
-
-<div class="team-member founder">
-<h2>Jesse Saltzman</h2>
-<h3>Founder</h3>
+<div class="split">
+<img src="jesse-headshot.jpg" alt="Jesse Saltzman">
+<div>
+<h2 style="color:#5a8fc0;">Built by Someone Who Actually Does This Job</h2>
 <p><strong>DSA Class 1 Inspector</strong> - Currently on 3 projects delivering $170+ million in work over the next 3 years.</p>
-<p><strong>Retired U.S. Marine, 1371 Combat Engineer</strong> - Responsible for managing construction projects from ranges on Camp Pendleton to forward operating bases in enemy territory.</p>
-<p>After years of spending evenings retyping inspection notes into reports, Jesse built the app that actually works for DSA inspectors.</p>
-</div>
-
-<div class="team-member">
-<h2>Rachelle Quidasol</h2>
-<h3>Customer Service & Operations</h3>
-<p><strong>Virtual Assistant to DSA Inspectors</strong> - Has been assisting DSA inspectors and is well versed on DSA process and paperwork, including the daily reporting process.</p>
-<p><strong>Customer Support</strong> - She will be there when you need her to assist with any questions or challenges you face.</p>
-<p>Rachelle understands the inspection workflow because she's been helping inspectors navigate it for years.</p>
-</div>
-
-<div class="team-member">
-<h2>Ava Saltzman</h2>
-<h3>IT Developer & Tech Support</h3>
-<p><strong>Jesse's Daughter</strong> - Aspiring computer science major who built the Swift app that powers My Daily Reports.</p>
-<p><strong>Technical Support</strong> - She's available to get you through any IT difficulties you might encounter.</p>
-<p>Ava combines her programming skills with understanding of what her dad actually needs in the field.</p>
-</div>
-
-</div>
-
-<!-- Team Photos Section -->
-<div style="margin:80px 0;">
-<h2 style="color:#5a8fc0;text-align:center;margin-bottom:40px;">Meet the Team</h2>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;max-width:800px;margin:0 auto;">
-
-<div style="text-align:center;">
-<div style="width:200px;height:250px;background:#333;border-radius:8px;border:3px solid #e8742a;display:flex;align-items:center;justify-content:center;color:#888;margin:0 auto 15px auto;">
-[Jesse's Photo]
-</div>
-<h3 style="color:#e8742a;margin:0;">Jesse Saltzman</h3>
-<p style="color:#5a8fc0;font-size:14px;margin:5px 0 0 0;">Founder</p>
-</div>
-
-<div style="text-align:center;">
-<div style="width:200px;height:250px;background:#333;border-radius:8px;border:3px solid #e8742a;display:flex;align-items:center;justify-content:center;color:#888;margin:0 auto 15px auto;">
-[Rachelle's Photo]
-</div>
-<h3 style="color:#e8742a;margin:0;">Rachelle Quidasol</h3>
-<p style="color:#5a8fc0;font-size:14px;margin:5px 0 0 0;">Customer Service & Operations</p>
-</div>
-
-<div style="text-align:center;">
-<div style="width:200px;height:250px;background:#333;border-radius:8px;border:3px solid #e8742a;display:flex;align-items:center;justify-content:center;color:#888;margin:0 auto 15px auto;">
-[Ava's Photo]
-</div>
-<h3 style="color:#e8742a;margin:0;">Ava Saltzman</h3>
-<p style="color:#5a8fc0;font-size:14px;margin:5px 0 0 0;">IT Developer & Tech Support</p>
-</div>
-
+<p><strong>Retired U.S. Marine, 1371 Combat Engineer</strong> - Responsible for managing construction projects from ranges on Camp Pendleton to forward operating bases in hostile environments.</p>
+<p><strong>Stop spending your evenings doing paperwork you already did in the field.</strong></p>
 </div>
 </div>
 
-<div style="background:#2a2a2a;padding:40px;border-radius:8px;text-align:center;margin:60px 0;">
-<p style="font-size:1.8rem;color:#5a8fc0;font-weight:600;margin-bottom:30px;">Stop spending your evenings doing paperwork you already did in the field.</p>
+<div class="problem">
+<h2>Here's What Really Happens</h2>
+<p><strong>7 AM:</strong> Walking around site doing your counts, seeing who's onsite and what's going on for the day. Down in a footing looking at rebar and then off to an OAC meeting.</p>
+<p><strong>10 AM:</strong> Now how many concrete guys were there again? Off to lunch and another site quick to look at some solar panel bolting, taking voice notes if needed and a few photos.</p>
+<p><strong>Afternoon:</strong> Back to the main job for some underslab electrical and helping the GC out with a few things, discussing some details. Sit down to read the RFIs for the day and check your email to find 2 inspection requests dropped in there at 10am.</p>
+<p><strong>3:30 PM:</strong> You get off before sitting in an hour of traffic home. 2 hours of daylight before you retreat in the house to start transcribing your day from a mess of handwritten notes, pictures and 6 minutes of voice notes for 2 different jobs.</p>
+<p><strong>Evening:</strong> Did you review that submittal on the electrical splices against the spec and district standards from the solar project yet? So another hour of typing, copying, pasting, sending photos, moving and resizing them. Then you rename, create an email, PDF the document and upload it. Send it off and you get to do it all again tomorrow.</p>
+<p style="color:#e8742a;font-size:1.3rem;font-weight:600;">I've got better things to do with my time.</p>
+<p><strong>I wanted to produce a better product on a daily basis than I had been, and I can do it while I walk the site.</strong></p>
+</div>
+
+<div class="jobsite">
+<h2 style="font-size:2.5rem;margin-bottom:20px;">What I Built Instead</h2>
+<p style="font-size:1.3rem;max-width:600px;margin:0 auto;">Open any PDF or Word document in the app. Use voice-to-text to fill out forms while you inspect. Camera captures photos that go directly into your reports.</p>
+</div>
+
+<div class="features">
+<div class="feature">
+<h3>Upload YOUR Templates</h3>
+<p>These are the forms you use every day. The exact forms your clients expect, not some generic template. <strong>No one else does this.</strong></p>
+</div>
+<div class="feature">
+<h3>Voice-to-Text</h3>
+<p>Talk while you inspect. Voice fills out your forms in real-time. No more retyping.</p>
+</div>
+<div class="feature">
+<h3>Built-in Camera</h3>
+<p>Photos go directly where they belong in your reports. No more manual copy-paste.</p>
+</div>
+<div class="feature">
+<h3>Automatic Delivery</h3>
+<p>Hit send at day's end. Reports automatically email to clients and your office.</p>
+</div>
+<div class="feature">
+<h3>Print-Ready PDFs</h3>
+<p>Exactly what you'd submit to the client. Perfect formatting, no cleanup needed.</p>
+</div>
+<div class="feature">
+<h3>Smart Scheduling</h3>
+<p>Enjoy our complimentary inspection scheduling calendar and email system designed with mobile-first intent. In the My Daily Reports subscription version, you can upload your own inspection requests the same as a daily report and create a PDF version of your template digitally from anywhere with email capabilities.</p>
+</div>
+</div>
+
+<div style="text-align:center;margin:60px 0;">
+<div class="price">$19.99<span style="font-size:1rem;color:#ccc;">/month</span></div>
+<p style="font-size:1.2rem;margin-bottom:30px;"><strong>14-day free trial. Cancel anytime.</strong></p>
 <a href="#" class="btn">Start Free Trial</a>
+</div>
+
+<div style="background:#2a2a2a;padding:40px;border-radius:8px;text-align:center;margin:40px 0;">
+<h2 style="color:#5a8fc0;">The Bottom Line</h2>
+<p style="font-size:1.2rem;">Let me help you automate mundane tasks. Ask about custom built AI solutions.</p>
+<p style="font-size:1.1rem;color:#ccc;margin:20px 0;text-align:left;max-width:800px;margin:20px auto;">Some of our ideas include:</p>
+<div style="text-align:left;max-width:800px;margin:0 auto;color:#ccc;">
+<p>• <strong>Automatic retrieval</strong> of every relevant RFI/submittal/spec section and plan detail/pages when receiving inspection requests - which in turn get synopsized automatically on the daily report or photo associated with the inspection</p>
+<p>• <strong>Auto tracking</strong> of special inspection requests matched to received reports in a file and populated onto daily reports</p>
+<p>• <strong>Upload the schedule</strong> and let it help you create notifications and track inspection cards while keeping records of concrete placement and whatever else you need</p>
+</div>
+<p style="margin-top:30px;"><strong>Email:</strong> jesse@mydailyreports.com</p>
+<a href="#" class="btn" style="margin-top:20px;">Download Now</a>
 </div>
 
 </div>
