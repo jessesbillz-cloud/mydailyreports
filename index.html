@@ -31,7 +31,7 @@ body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-heigh
 
 <div class="nav">
 <a href="/">Home</a>
-<a href="team.html">Meet the Team</a>
+<a href="team-updated.html">Meet the Team</a>
 <a href="https://jessesbillz-cloud.github.io/saltzman-scheduling/wpms.html">Free Scheduling</a>
 </div>
 
@@ -105,6 +105,10 @@ body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-heigh
 <div class="price">$19.99<span style="font-size:1rem;color:#ccc;">/month</span></div>
 <p style="font-size:1.2rem;margin-bottom:30px;"><strong>14-day free trial. Cancel anytime.</strong></p>
 <a href="#" class="btn">Start Free Trial</a>
+<div style="margin-top:30px;display:flex;gap:15px;justify-content:center;flex-wrap:wrap;">
+<button onclick="openTrainingModal()" style="background:#5a8fc0;color:#fff;padding:12px 24px;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px;">See Training Guides</button>
+<button onclick="openVideoModal()" style="background:#333;color:#fff;padding:12px 24px;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px;">Watch Jesse Explain</button>
+</div>
 </div>
 
 <div style="background:#2a2a2a;padding:40px;border-radius:8px;text-align:center;margin:40px 0;">
@@ -116,4 +120,186 @@ body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-heigh
 <p>• <strong>Auto tracking</strong> of special inspection requests matched to received reports in a file and populated onto daily reports</p>
 <p>• <strong>Upload the schedule</strong> and let it help you create notifications and track inspection cards while keeping records of concrete placement and whatever else you need</p>
 </div>
-<p style="margin-top:30px;"><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e68c83959583a68b9f82878f8a9f94839689949295c885898b">[
+<p style="margin-top:30px;"><strong>Email:</strong> jesse@mydailyreports.com</p>
+<a href="#" class="btn" style="margin-top:20px;">Download Now</a>
+</div>
+
+</div>
+
+<!-- Training Modal -->
+<div id="trainingModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;padding:20px;box-sizing:border-box;">
+<div style="background:#1a1a1a;max-width:900px;margin:40px auto;border-radius:12px;overflow:hidden;max-height:90vh;display:flex;flex-direction:column;">
+<div style="background:#2a2a2a;padding:20px;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center;">
+<h2 style="color:#5a8fc0;margin:0;font-size:1.5rem;">Training Center</h2>
+<button onclick="closeTrainingModal()" style="background:none;border:none;color:#888;font-size:24px;cursor:pointer;padding:0;width:32px;height:32px;">&times;</button>
+</div>
+<div style="overflow-y:auto;flex:1;">
+<div style="padding:30px;">
+<div style="text-align:center;margin-bottom:30px;">
+<div style="font-size:40px;color:#5a8fc0;margin-bottom:10px;">🎓</div>
+<p style="color:#ccc;font-size:16px;margin:0;">Step-by-step guides to help you get the most out of My Daily Reports</p>
+</div>
+<div id="trainingGuides" style="display:grid;gap:16px;">
+<!-- Training guides will be populated here -->
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Video Modal -->
+<div id="videoModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;padding:20px;box-sizing:border-box;">
+<div style="background:#1a1a1a;max-width:800px;margin:40px auto;border-radius:12px;overflow:hidden;max-height:90vh;">
+<div style="background:#2a2a2a;padding:20px;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center;">
+<h2 style="color:#5a8fc0;margin:0;font-size:1.5rem;">Watch Jesse Explain</h2>
+<button onclick="closeVideoModal()" style="background:none;border:none;color:#888;font-size:24px;cursor:pointer;padding:0;width:32px;height:32px;">&times;</button>
+</div>
+<div style="padding:30px;text-align:center;">
+<div style="background:#333;border-radius:8px;padding:40px;margin-bottom:20px;">
+<div style="font-size:48px;margin-bottom:15px;">🎥</div>
+<p style="color:#ccc;font-size:16px;margin:0 0 20px 0;">Video coming soon!</p>
+<p style="color:#888;font-size:14px;">Jesse will show you the real inspector workflow - from handwritten notes on the jobsite to clean, professional reports.</p>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+// Training guides data converted from Swift
+const trainingGuides = [
+{
+icon: "🚀", color: "#007AFF", title: "Getting Started", 
+subtitle: "Learn the basics of creating jobs and navigating the app",
+steps: [
+"Sign In to Your Account - When you first open My Daily Reports you will see the sign-in screen. Enter your email and password, or create a new account if you don't have one yet.",
+"The Welcome Screen - After signing in you land on the Welcome screen. From here you can create your first job, visit the Training Center, or review the Terms of Service.",
+"Create Your First Job - Tap \"Create a Job in One Click\" to start. Fill in the job name (required), site address, hours budget, and optionally upload a template.",
+"Upload a Report Template - During job creation you can upload a PDF or .docx template. PDF templates let you define fillable field positions visually.",
+"Switching Between Jobs - Use the job picker dropdown at the top of the screen to switch between your jobs."
+]
+},
+{
+icon: "📝", color: "#34C759", title: "Creating Your First Report",
+subtitle: "Step-by-step guide to building a daily inspection report", 
+steps: [
+"Start a New Report - From the job dashboard, tap the \"New Report\" button to open the full report editor.",
+"Import a Previous Report - Tap \"Import PDF\" to select an existing report. The app will automatically parse and fill recognized fields.",
+"Fill In Project Information - Complete sections for Project Information, Hours, and Team Information.", 
+"Add Inspection Notes - Use content sections: General Notes, Inspection Activities, Contractor Activity, Corrections, and IOR Notes.",
+"Save or Submit - \"Save Working Copy\" saves as draft. \"Submit Report\" finalizes and generates PDF."
+]
+},
+{
+icon: "🎤", color: "#FF3B30", title: "Using Voice Input",
+subtitle: "Dictate reports hands-free using speech-to-text",
+steps: [
+"Speech-to-Text in Report Fields - Every text field has a microphone icon. Tap to start recording and convert speech to text.",
+"How to Record - Tap microphone once to start (icon turns red), speak naturally, tap again to stop. Text appears in field.",
+"Quick Observation Notes - Long-press app icon for \"Quick Observation Notes\" to capture notes on the go.",
+"Permissions - First use requires Microphone and Speech Recognition permissions. Audio is processed on-device for privacy."
+]
+},
+{
+icon: "📷", color: "#FF9500", title: "Photo Documentation", 
+subtitle: "Capture and organize site photos for your reports",
+steps: [
+"Job Site Photos - Photos section on job dashboard manages site photos for current job, saved locally.",
+"Take a Photo - Tap \"Camera\" button to open camera and take new photo, automatically added to job collection.",
+"Upload from Photo Library - Tap \"Upload\" to select multiple photos from your photo library.",
+"Remove a Photo - Tap X button on photo thumbnail to remove from job collection.",
+"Photos in Reports - Photos from imported PDFs are automatically extracted and shown in report editor."
+]
+},
+{
+icon: "📤", color: "#AF52DE", title: "Exporting & Sharing",
+subtitle: "Generate PDFs and share your completed reports", 
+steps: [
+"PDF Generation - \"Submit Report\" generates formatted PDF following standard DSA/HCAI inspection report format.",
+"Save to Files - Export to Files opens iOS Files picker to choose save location on device or iCloud Drive.",
+"Email Export - Email export opens mail compose sheet with PDF attached for sending.",
+"Filename Customization - Auto-generated filenames can be customized in report editor.",
+"Viewing Past Reports - Tap any report on dashboard to open, review, edit, or re-export."
+]
+},
+{
+icon: "💼", color: "#5AC8FA", title: "Managing Your Jobs",
+subtitle: "Edit, archive, and organize your projects",
+steps: [
+"Edit a Job - Tap three-dot menu next to job name, select \"Edit Job\" to modify settings.",
+"Archive a Job - Archive completed projects to keep data but remove from active list.",
+"Delete a Job - Permanently remove job and all reports (cannot be undone).",
+"Report Status & Frequency - Dashboard shows \"Due\" (red) or \"On Track\" (green) status with customizable frequency."
+]
+},
+{
+icon: "⚙️", color: "#8E8E93", title: "Profile & Settings",
+subtitle: "Customize your account and app preferences",
+steps: [
+"Access Settings - Tap person icon, select \"Profile Settings\" to update account information.",
+"Subscription Tiers - Free, Silver, Premium, and Enterprise tiers with different features and limits.",
+"Timezone - Set correct timezone for accurate report dates and times.",
+"Sign Out - Sign out option preserves data in cloud for access on any device."
+]
+}
+];
+
+function openTrainingModal() {
+document.getElementById('trainingModal').style.display = 'block';
+populateTrainingGuides();
+document.body.style.overflow = 'hidden';
+}
+
+function closeTrainingModal() {
+document.getElementById('trainingModal').style.display = 'none';
+document.body.style.overflow = 'auto';
+}
+
+function openVideoModal() {
+document.getElementById('videoModal').style.display = 'block';
+document.body.style.overflow = 'hidden';
+}
+
+function closeVideoModal() {
+document.getElementById('videoModal').style.display = 'none';
+document.body.style.overflow = 'auto';
+}
+
+function populateTrainingGuides() {
+const container = document.getElementById('trainingGuides');
+container.innerHTML = trainingGuides.map(guide => `
+<div style="background:#2a2a2a;border-radius:12px;padding:20px;border-left:4px solid ${guide.color};">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<div style="font-size:24px;">${guide.icon}</div>
+<div>
+<h3 style="color:#fff;margin:0 0 4px 0;font-size:18px;">${guide.title}</h3>
+<p style="color:#888;margin:0;font-size:14px;">${guide.subtitle}</p>
+</div>
+</div>
+<div style="margin-left:36px;">
+${guide.steps.map((step, i) => `
+<div style="margin:8px 0;color:#ccc;font-size:14px;">
+<strong style="color:${guide.color};">${i + 1}.</strong> ${step}
+</div>
+`).join('')}
+</div>
+</div>
+`).join('');
+}
+
+// Close modals when clicking outside
+document.addEventListener('click', function(e) {
+if (e.target.id === 'trainingModal') closeTrainingModal();
+if (e.target.id === 'videoModal') closeVideoModal();
+});
+
+// Close modals with escape key
+document.addEventListener('keydown', function(e) {
+if (e.key === 'Escape') {
+closeTrainingModal();
+closeVideoModal();
+}
+});
+</script>
+
+</body>
+</html>
