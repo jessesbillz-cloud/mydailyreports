@@ -121,6 +121,23 @@ window.addEventListener('load', async () => {
     
     // Pre-fill inspector email
     document.getElementById('inspectorEmail').value = currentUser.email;
+    
+    // Load and auto-populate display name
+    try {
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('display_name')
+            .eq('id', currentUser.id)
+            .single();
+        
+        if (profile && profile.display_name) {
+            // Auto-generate project name suggestion
+            const projectSuggestion = `${profile.display_name} Project`;
+            document.getElementById('projectName').placeholder = projectSuggestion;
+        }
+    } catch (error) {
+        console.error('Error loading profile:', error);
+    }
 });
 
 function showError(message) {
@@ -185,9 +202,26 @@ function renderTeamList() {
     `).join('');
 }
 
-// Generate URL-safe slug from name and DSA number
-function generateUserSlug() {
-    // For now, use email prefix. Later we'll add DSA number field
+// Generate URL-safe slug from display name
+async function generateUserSlug() {
+    try {
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('display_name')
+            .eq('id', currentUser.id)
+            .single();
+        
+        if (profile && profile.display_name) {
+            return profile.display_name.toLowerCase()
+                .replace(/[^a-z0-9\s]/g, '')  // Remove special chars
+                .replace(/\s+/g, '-')         // Spaces to hyphens
+                .trim();
+        }
+    } catch (error) {
+        console.error('Error getting profile name:', error);
+    }
+    
+    // Fallback to email prefix if no display name
     const emailPrefix = currentUser.email.split('@')[0];
     return emailPrefix.toLowerCase().replace(/[^a-z0-9]/g, '-');
 }
@@ -250,7 +284,7 @@ document.getElementById('jobForm').addEventListener('submit', async (e) => {
         createdJobId = job.id;
         
         // Generate scheduling URL
-        const userSlug = generateUserSlug();
+        const userSlug = await generateUserSlug();
         const schedulingUrl = `${window.location.origin}/schedule/${userSlug}`;
         
         // Show success and URL
