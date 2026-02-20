@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title id="pageTitle">Inspection Request</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;margin:0;background:#111;color:#fff;min-height:100vh;}
+.container{max-width:500px;margin:0 auto;padding:20px;}
+.header{text-align:center;margin-bottom:30px;}
+.header h2{color:#5a8fc0;margin:0 0 5px 0;font-size:1.5rem;}
+.header p{color:#ccc;margin:0;font-size:0.95rem;}
+.tabs{display:flex;border-bottom:2px solid #333;margin-bottom:0;}
+.tab{flex:1;text-align:center;padding:10px;font-size:14px;font-weight:600;cursor:pointer;color:#666;border-bottom:2px solid transparent;margin-bottom:-2px;}
+.tab.active{color:#5a8fc0;border-bottom-color:#5a8fc0;}
+.card{background:#1a1a1a;border-radius:8px;border:1px solid #333;margin-bottom:20px;overflow:hidden;}
+.card-header{background:#333;padding:15px;color:#5a8fc0;font-weight:600;font-size:14px;}
+.card-content{padding:20px;}
+.form-wrap{background:#1a1a1a;border-radius:8px;border:1px solid #333;padding:20px;display:none;}
+.field-label{display:block;color:#ccc;font-weight:500;margin:15px 0 5px 0;font-size:14px;}
+.field-input{width:100%;background:#333;color:#fff;border:1px solid #555;padding:10px;border-radius:6px;font-size:14px;margin-bottom:10px;box-sizing:border-box;}
+.field-input:focus{outline:none;border-color:#5a8fc0;}
+.type-btn,.dur-btn{background:#444;color:#ccc;border:1px solid #555;padding:8px 16px;border-radius:4px;cursor:pointer;margin:5px 5px 5px 0;font-size:13px;}
+.type-btn.active{color:#000;background:#e8742a;color:#fff;border-color:#e8742a;}
+.dur-btn.active{color:#000;background:#e8742a;color:#fff;border-color:#e8742a;}
+.email-list{background:#222;border:1px solid #333;border-radius:6px;padding:8px 12px;margin-bottom:16px;}
+.email-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #333;font-size:13px;color:#ccc;}
+.email-row:last-child{border-bottom:none;}
+.email-row input{width:18px;height:18px;}
+.submit-btn{width:100%;padding:14px;font-size:15px;font-weight:bold;color:#fff;background:#e8742a;border:none;border-radius:8px;cursor:pointer;}
+.submit-btn:hover{background:#d6662a;}
+.submit-btn:disabled{background:#666;cursor:not-allowed;}
+.success-view{text-align:center;padding:40px 20px;background:#1a1a1a;border-radius:8px;border:1px solid #333;display:none;}
+.reset-btn{margin-top:16px;padding:10px 20px;font-size:14px;font-weight:bold;color:#5a8fc0;background:none;border:2px solid #5a8fc0;border-radius:8px;cursor:pointer;}
+.reset-btn:hover{background:#5a8fc0;color:#fff;}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:#333;margin:10px 0;}
+.cal-header{background:#444;color:#ccc;text-align:center;padding:8px 4px;font-size:12px;font-weight:600;}
+.cal-day{background:#1a1a1a;min-height:50px;padding:4px;cursor:pointer;position:relative;display:flex;align-items:flex-start;}
+.cal-day:hover{background:#2a2a2a;}
+.cal-day.other-month{color:#555;}
+.cal-day.selected{background:#2d4a3d;}
+.cal-day.has-inspections{color:#5a8fc0;font-weight:600;}
+.nav-btn{background:#5a8fc0;color:#fff;border:none;padding:8px 12px;margin:0 10px;border-radius:4px;cursor:pointer;font-size:14px;}
+.month-nav{display:flex;align-items:center;justify-content:center;margin:20px 0;}
+.day-detail{background:#2a3a2a;padding:15px;margin:10px 0;border-radius:6px;border-left:4px solid:#5a8fc0;display:none;}
+.loading{text-align:center;padding:40px;color:#888;}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+<h2>Inspection Request</h2>
+<p id="projectHeader">Loading...</p>
+</div>
+
+<div class="tabs" id="tabBar">
+<div class="tab active" onclick="switchTab('calendar')">Calendar</div>
+<div class="tab" onclick="switchTab('request')">New Request</div>
+</div>
+
+<div id="loadingMessage" class="loading">Loading scheduling system...</div>
+
+<div id="calendarView" style="display:none;">
+
+<div class="card">
+<div style="padding:20px;text-align:center;">
+<img src="image0-5.jpeg" alt="Reports Logo" style="width:80px;height:80px;margin-bottom:8px;">
+<div style="font-size:24px;font-weight:bold;color:#5a8fc0;margin-bottom:4px;">My Daily Reports</div>
+<div style="font-size:13px;color:#888;margin-bottom:12px;">Professional inspection documentation</div>
+<button style="padding:8px 16px;font-size:13px;font-weight:600;color:#fff;background:#e8742a;border:none;border-radius:6px;cursor:pointer;" onclick="window.open('https://mydailyreports.com','_blank')">Learn More</button>
+</div>
+</div>
+<div class="card">
+<div style="padding:16px;font-size:12px;color:#888;line-height:1.4;">
+<strong style="color:#5a8fc0;">Quick Guide:</strong>
+<span style="color:#e8742a;">Click any day</span> to see live schedule from all jobsites •
+<span style="color:#e8742a;">Numbers</span> show inspection count per day •
+<span style="color:#e8742a;">Additional emails</span> can be saved as permanent checkboxes
+</div>
+</div>
+
+<div class="card">
+<div class="card-header" id="calendarHeader">Calendar</div>
+<div class="card-content">
+<div class="month-nav">
+<button class="nav-btn" onclick="changeMonth(-1)">‹</button>
+<span id="monthYear"></span>
+<button class="nav-btn" onclick="changeMonth(1)">›</button>
+</div>
+<div class="cal" id="calendar"></div>
+<div id="dayDetail" class="day-detail"></div>
+</div>
+</div>
+
+</div>
+
+<div id="requestView" class="form-wrap">
+
+<input type="file" id="photoUpload" accept="image/*,application/pdf" style="margin-bottom:15px;">
+
+<div style="display:flex;gap:10px;margin-bottom:15px;">
+<div style="flex:1;">
+<label class="field-label">Date</label>
+<input type="date" id="inspDate" class="field-input">
+</div>
+<div style="flex:1;">
+<label class="field-label">Time</label>
+<input type="time" id="inspTime" class="field-input" value="07:00">
+</div>
+</div>
+
+<label style="display:flex;align-items:center;gap:8px;margin:15px 0;font-size:14px;color:#ccc;">
+<input type="checkbox" id="flexibleTime" style="width:18px;height:18px;">
+Flexible - Let inspector choose time
+</label>
+
+<div id="flexibleDisplay" style="display:none;margin:10px 0;padding:10px;background:#2a3a2a;border-radius:4px;font-size:13px;color:#ccc;">
+Inspector will pick the best time and send you a confirmation email by noon the day before.
+</div>
+
+<label class="field-label">Duration</label>
+<div style="margin-bottom:15px;">
+<button type="button" class="dur-btn" onclick="selectDuration('30')">30 min</button>
+<button type="button" class="dur-btn" onclick="selectDuration('60')">1 hour</button>
+<button type="button" class="dur-btn" onclick="selectDuration('90')">1.5 hours</button>
+<button type="button" class="dur-btn" onclick="selectDuration('120')">2 hours</button>
+<button type="button" class="dur-btn" onclick="selectDuration('180')">3 hours</button>
+</div>
+
+<label class="field-label">Inspection Type</label>
+<div style="margin-bottom:15px;">
+<button type="button" class="type-btn" onclick="selectType('IOR')">IOR</button>
+<button type="button" class="type-btn" onclick="selectType('Special')">Special</button>
+</div>
+
+<div id="specialTypeWrap" style="display:none;margin-bottom:15px;">
+<select class="field-input" id="specialType">
+<option value="">Select type</option>
+<option value="Material ID">Material ID</option>
+<option value="CWI">CWI</option>
+<option value="Bolting">Bolting</option>
+<option value="Pull Test">Pull Test</option>
+<option value="Soils">Soils</option>
+<option value="Concrete">Concrete</option>
+<option value="Shotcrete">Shotcrete</option>
+<option value="Fireproofing">Fireproofing</option>
+</select>
+</div>
+
+<label class="field-label">Your Name</label>
+<select id="iName" class="field-input" onchange="toggleOtherName()">
+<option value="">Select your name</option>
+<option value="__other__">Other</option>
+</select>
+
+<div id="iNameOther" style="display:none;margin-bottom:15px;">
+<input type="text" id="iNameOtherText" class="field-input" placeholder="Enter your name">
+</div>
+
+<label class="field-label">Send a copy to:</label>
+<div id="emailList" class="email-list">
+</div>
+
+<label style="display:flex;align-items:center;gap:8px;margin:12px 0 8px 0;font-size:13px;color:#ccc;cursor:pointer;">
+<input type="checkbox" id="additionalEmailsCheck" onchange="toggleAdditionalEmails()" style="width:18px;height:18px;">
+Additional emails
+</label>
+<div id="additionalEmailsWrap" style="display:none;">
+<input type="text" id="additionalEmailsList" class="field-input" placeholder="Enter additional emails separated by commas" style="font-size:13px;" onblur="checkForNewEmails()">
+<div style="font-size:11px;color:#888;margin-top:4px;">Separate multiple emails with commas</div>
+<div id="saveEmailPrompt" style="display:none;margin-top:8px;padding:10px;background:#2a3a2a;border-radius:4px;border-left:3px solid #e8742a;">
+<div style="font-size:12px;color:#ccc;margin-bottom:6px;">Save new email addresses as permanent options?</div>
+<div id="newEmailsList" style="font-size:11px;color:#5a8fc0;margin-bottom:8px;"></div>
+<button onclick="saveNewEmails()" style="background:#e8742a;color:#fff;border:none;padding:4px 12px;border-radius:4px;font-size:11px;margin-right:8px;cursor:pointer;">Save Permanently</button>
+<button onclick="dismissSavePrompt()" style="background:#555;color:#fff;border:none;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;">Not Now</button>
+</div>
+</div>
+
+<label class="field-label">Notes</label>
+<textarea id="inspNotes" class="field-input" rows="3" placeholder="Additional notes or special instructions"></textarea>
+
+<button id="submitBtn" class="submit-btn" onclick="submitRequest()">Submit Inspection Request</button>
+
+</div>
+
+<div class="success-view" id="successView">
+<div style="font-size:48px;">&#9989;</div>
+<h2>Request Submitted</h2>
+<p id="successMessage">Sent to inspector. It will appear on their calendar.</p>
+<p id="emailNote" style="color:#666;font-size:12px;display:none;"></p>
+<button onclick="resetForm()" class="reset-btn">Submit Another</button>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// Initialize Supabase client
+const supabase = window.supabase.createClient(
+    'YOUR_SUPABASE_URL',
+    'YOUR_SUPABASE_ANON_KEY'
+);
+
+let currentJob = null;
+let teamMembers = [];
+let currentDate = new Date();
+let selectedDate = null;
+let photoFile = null;
+let inspType = '';
+let inspDur = '';
+
+// Get inspector slug from URL
+function getInspectorSlug() {
+    const pathParts = window.location.pathname.split('/');
+    return pathParts[pathParts.length - 1]; // Last part of URL
+}
+
+// Load job data for this inspector
+async function loadJobData() {
+    const slug = getInspectorSlug();
+    
+    try {
+        // For now, we'll need a way to map slug to user
+        // This is simplified - you'll need proper slug handling
+        const { data: jobs, error } = await supabase
+            .from('user_jobs')
+            .select(`
+                *,
+                job_team_members (name, email),
+                profiles (display_name)
+            `)
+            .eq('active', true)
+            .limit(1)
+            .single();
+
+        if (error) throw error;
+        
+        currentJob = jobs;
+        teamMembers = jobs.job_team_members || [];
+        
+        // Update page content
+        document.getElementById('pageTitle').textContent = `${jobs.project_name} - Inspection Request`;
+        document.getElementById('projectHeader').textContent = `${jobs.project_name} — ${jobs.gc_name}`;
+        
+        // Populate team dropdown
+        populateTeamDropdown();
+        populateEmailList();
+        
+        // Show calendar
+        document.getElementById('loadingMessage').style.display = 'none';
+        document.getElementById('calendarView').style.display = 'block';
+        
+        renderCalendar();
+        
+    } catch (error) {
+        console.error('Error loading job data:', error);
+        document.getElementById('loadingMessage').innerHTML = 'Error loading scheduling system. Please check the URL.';
+    }
+}
+
+function populateTeamDropdown() {
+    const dropdown = document.getElementById('iName');
+    
+    // Clear existing options except "Select" and "Other"
+    dropdown.innerHTML = '<option value="">Select your name</option>';
+    
+    // Add team members
+    teamMembers.forEach(member => {
+        const option = document.createElement('option');
+        option.value = member.name;
+        option.textContent = member.name;
+        dropdown.appendChild(option);
+    });
+    
+    // Add "Other" option
+    const otherOption = document.createElement('option');
+    otherOption.value = '__other__';
+    otherOption.textContent = 'Other';
+    dropdown.appendChild(otherOption);
+}
+
+function populateEmailList() {
+    const emailList = document.getElementById('emailList');
+    
+    // Add inspector email
+    const inspectorRow = document.createElement('label');
+    inspectorRow.className = 'email-row';
+    inspectorRow.innerHTML = `<input type="checkbox" value="${currentJob.inspector_email}" class="emailCheck">${currentJob.profiles?.display_name || 'Inspector'}`;
+    emailList.appendChild(inspectorRow);
+    
+    // Add team member emails
+    teamMembers.forEach(member => {
+        const row = document.createElement('label');
+        row.className = 'email-row';
+        row.innerHTML = `<input type="checkbox" value="${member.email}" class="emailCheck">${member.name}`;
+        emailList.appendChild(row);
+    });
+}
+
+// Rest of your JavaScript functions (calendar, form handling, etc.)
+// These would be identical to your WPMS system
+
+function switchTab(tab) {
+    document.querySelectorAll('.tab')[0].classList.toggle('active', tab === 'calendar');
+    document.querySelectorAll('.tab')[1].classList.toggle('active', tab === 'request');
+    document.getElementById('calendarView').style.display = tab === 'calendar' ? 'block' : 'none';
+    document.getElementById('requestView').style.display = tab === 'request' ? 'block' : 'none';
+}
+
+function selectDuration(duration) {
+    document.querySelectorAll('.dur-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    inspDur = duration;
+}
+
+function selectType(type) {
+    document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    inspType = type;
+    document.getElementById('specialTypeWrap').style.display = type === 'Special' ? 'block' : 'none';
+}
+
+function toggleOtherName() {
+    const select = document.getElementById('iName');
+    document.getElementById('iNameOther').style.display = select.value === '__other__' ? 'block' : 'none';
+}
+
+function toggleAdditionalEmails() {
+    const wrap = document.getElementById('additionalEmailsWrap');
+    const checked = document.getElementById('additionalEmailsCheck').checked;
+    wrap.style.display = checked ? 'block' : 'none';
+}
+
+// Calendar functions (same as your WPMS)
+function renderCalendar() {
+    // Implementation same as your calendar
+    document.getElementById('monthYear').textContent = currentDate.toLocaleDateString('en-US', {month:'long', year:'numeric'});
+    // ... calendar rendering logic
+}
+
+function changeMonth(dir) {
+    currentDate.setMonth(currentDate.getMonth() + dir);
+    renderCalendar();
+}
+
+async function submitRequest() {
+    // Collect form data and submit to database
+    // Implementation same as your WPMS submit logic
+    console.log('Submitting request for job:', currentJob.id);
+}
+
+function resetForm() {
+    // Reset form logic
+    document.getElementById('successView').style.display = 'none';
+    document.getElementById('tabBar').style.display = 'flex';
+    switchTab('calendar');
+}
+
+// Additional email functions (same as your WPMS)
+function checkForNewEmails() {
+    // Email saving logic
+}
+
+function saveNewEmails() {
+    // Save permanently logic
+}
+
+function dismissSavePrompt() {
+    document.getElementById('saveEmailPrompt').style.display = 'none';
+}
+
+// Load job data when page loads
+window.addEventListener('load', loadJobData);
+</script>
+
+</body>
+</html>
