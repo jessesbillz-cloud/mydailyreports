@@ -59,7 +59,7 @@ body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-heigh
 <p style="font-size:3rem;color:#fff;margin:20px auto;font-weight:bold;line-height:1.2;text-align:center;max-width:90%;display:block;">"Stop spending your evenings doing paperwork you already did in the field."</p>
 <p style="text-align:center;margin-top:30px;">Jesse Saltzman, DSA Class 1 Inspector and retired Marine, built the inspection app that actually works for DSA inspectors.</p>
 <div style="text-align:center;">
-<a href="#" class="btn">Download Free Trial</a>
+<a href="#" class="btn" onclick="openBetaSignup()">Join Beta Test</a>
 </div>
 </div>
 
@@ -120,7 +120,7 @@ body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-heigh
 <div style="text-align:center;margin:60px 0;">
 <div class="price">$19.99<span style="font-size:1rem;color:#ccc;">/month</span></div>
 <p style="font-size:1.2rem;margin-bottom:30px;"><strong>14-day free trial. Cancel anytime.</strong></p>
-<a href="#" class="btn">Start Free Trial</a>
+<a href="#" class="btn">Join Beta Test</a>
 <div style="margin-top:30px;display:flex;gap:15px;justify-content:center;flex-wrap:wrap;">
 <button onclick="openTrainingModal()" style="background:#5a8fc0;color:#fff;padding:12px 24px;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px;">See Training Guides</button>
 <button onclick="openVideoModal()" style="background:#333;color:#fff;padding:12px 24px;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px;">Watch Jesse Explain</button>
@@ -176,6 +176,53 @@ body{font-family:Arial,sans-serif;margin:0;background:#111;color:#fff;line-heigh
 <p style="color:#ccc;font-size:16px;margin:0 0 20px 0;">Video coming soon!</p>
 <p style="color:#888;font-size:14px;">Jesse will show you the real inspector workflow - from handwritten notes on the jobsite to clean, professional reports.</p>
 </div>
+</div>
+</div>
+</div>
+
+<!-- Beta Signup Modal -->
+<div id="betaModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;padding:20px;box-sizing:border-box;">
+<div style="background:#1a1a1a;max-width:500px;margin:40px auto;border-radius:12px;overflow:hidden;">
+<div style="background:#2a2a2a;padding:20px;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center;">
+<h2 style="color:#5a8fc0;margin:0;font-size:1.5rem;">Join Beta Test</h2>
+<button onclick="closeBetaModal()" style="background:none;border:none;color:#888;font-size:24px;cursor:pointer;padding:0;width:32px;height:32px;">&times;</button>
+</div>
+<div style="padding:30px;">
+<div style="text-align:center;margin-bottom:25px;">
+<div style="font-size:40px;color:#e8742a;margin-bottom:10px;">🧪</div>
+<p style="color:#ccc;font-size:16px;margin:0;">Get early access to My Daily Reports and help shape the future of DSA inspection reporting.</p>
+</div>
+
+<form id="betaForm" onsubmit="submitBetaSignup(event)">
+<div style="margin-bottom:15px;">
+<label style="display:block;color:#ccc;margin-bottom:5px;font-size:14px;">Full Name</label>
+<input type="text" id="betaName" required style="width:100%;background:#333;color:#fff;border:1px solid #555;padding:12px;border-radius:6px;font-size:14px;box-sizing:border-box;">
+</div>
+
+<div style="margin-bottom:15px;">
+<label style="display:block;color:#ccc;margin-bottom:5px;font-size:14px;">Email</label>
+<input type="email" id="betaEmail" required style="width:100%;background:#333;color:#fff;border:1px solid #555;padding:12px;border-radius:6px;font-size:14px;box-sizing:border-box;">
+</div>
+
+<div style="margin-bottom:15px;">
+<label style="display:block;color:#ccc;margin-bottom:5px;font-size:14px;">DSA Inspector Number (optional)</label>
+<input type="text" id="betaDsa" style="width:100%;background:#333;color:#fff;border:1px solid #555;padding:12px;border-radius:6px;font-size:14px;box-sizing:border-box;">
+</div>
+
+<div style="margin-bottom:20px;">
+<label style="display:block;color:#ccc;margin-bottom:5px;font-size:14px;">Current Projects</label>
+<textarea id="betaProjects" rows="2" placeholder="What projects are you currently inspecting?" style="width:100%;background:#333;color:#fff;border:1px solid #555;padding:12px;border-radius:6px;font-size:14px;box-sizing:border-box;"></textarea>
+</div>
+
+<button type="submit" style="width:100%;background:#e8742a;color:#fff;padding:14px;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:16px;">Join Beta Test</button>
+</form>
+
+<div id="betaSuccess" style="display:none;text-align:center;padding:20px;">
+<div style="font-size:48px;margin-bottom:15px;">✅</div>
+<h3 style="color:#5a8fc0;margin:0 0 10px 0;">You're In!</h3>
+<p style="color:#ccc;margin:0;">We'll send you a TestFlight invite within 48 hours. Check your email!</p>
+</div>
+
 </div>
 </div>
 </div>
@@ -278,6 +325,32 @@ document.body.style.overflow = 'hidden';
 function closeVideoModal() {
 document.getElementById('videoModal').style.display = 'none';
 document.body.style.overflow = 'auto';
+}
+
+function openBetaSignup() {
+document.getElementById('betaModal').style.display = 'block';
+document.body.style.overflow = 'hidden';
+}
+
+function closeBetaModal() {
+document.getElementById('betaModal').style.display = 'none';
+document.body.style.overflow = 'auto';
+}
+
+async function submitBetaSignup(event) {
+event.preventDefault();
+const form = document.getElementById('betaForm');
+const name = document.getElementById('betaName').value;
+const email = document.getElementById('betaEmail').value;
+const dsa = document.getElementById('betaDsa').value;
+const projects = document.getElementById('betaProjects').value;
+
+// Hide form, show success
+form.style.display = 'none';
+document.getElementById('betaSuccess').style.display = 'block';
+
+// TODO: Send to your email or database
+console.log('Beta signup:', { name, email, dsa, projects });
 }
 
 function populateTrainingGuides() {
