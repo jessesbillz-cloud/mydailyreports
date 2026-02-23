@@ -128,8 +128,126 @@ body{font-family:'Segoe UI',Roboto,Arial,sans-serif;margin:0;background:#0f0f0f;
 
 </div>
 
+<div id="trainingModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;padding:20px;box-sizing:border-box;">
+    <div style="background:#1a1a1a;max-width:900px;margin:40px auto;border-radius:12px;overflow:hidden;max-height:90vh;display:flex;flex-direction:column;">
+        <div style="background:#2a2a2a;padding:20px;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center;">
+            <h2 style="color:#5a8fc0;margin:0;font-size:1.5rem;">Training Center</h2>
+            <button onclick="closeTrainingModal()" style="background:none;border:none;color:#888;font-size:24px;cursor:pointer;padding:0;width:32px;height:32px;">&times;</button>
+        </div>
+        <div style="overflow-y:auto;flex:1;">
+            <div style="padding:30px;">
+                <div style="text-align:center;margin-bottom:30px;">
+                    <div style="font-size:40px;color:#5a8fc0;margin-bottom:10px;">🎓</div>
+                    <p style="color:#ccc;font-size:16px;margin:0;">Step-by-step guides to help you get the most out of My Daily Reports</p>
+                </div>
+                <div id="trainingGuides" style="display:grid;gap:16px;">
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="videoModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;padding:20px;box-sizing:border-box;">
+    <div style="background:#1a1a1a;max-width:800px;margin:40px auto;border-radius:12px;overflow:hidden;max-height:90vh;">
+        <div style="background:#2a2a2a;padding:20px;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center;">
+            <h2 style="color:#5a8fc0;margin:0;font-size:1.5rem;">Watch Jesse Explain</h2>
+            <button onclick="closeVideoModal()" style="background:none;border:none;color:#888;font-size:24px;cursor:pointer;padding:0;width:32px;height:32px;">&times;</button>
+        </div>
+        <div style="padding:30px;text-align:center;">
+            <div style="background:#333;border-radius:8px;padding:40px;margin-bottom:20px;">
+                <div style="font-size:48px;margin-bottom:15px;">🎥</div>
+                <p style="color:#ccc;font-size:16px;margin:0 0 20px 0;">Video coming soon!</p>
+                <p style="color:#888;font-size:14px;">Jesse will show you the real workflow - from quick notes on the jobsite to clean, professional reports.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-// Logic remains identical to your index (34).html to ensure backend stability.
+// Data synced from Ava's SwiftUI logic
+const trainingGuides = [
+    {
+        icon: "🚀", color: "#007AFF", title: "Getting Started", 
+        subtitle: "Learn the basics of creating jobs and navigating the app",
+        steps: [
+            "<strong>Sign In:</strong> Your data syncs across all devices automatically. <em>Tip: Use a strong password to keep project data secure.</em>",
+            "<strong>Create Your First Job:</strong> Tap 'Create a Job in One Click'. Pick a descriptive name like 'CSUSM Building'—this becomes the default project name for every report.",
+            "<strong>Upload a Template:</strong> Use your specific PDF or Word doc. Word templates use placeholders like {date} and {projectName} to auto-fill for you."
+        ]
+    },
+    {
+        icon: "🎤", color: "#FF3B30", title: "Voice Input & Quick Notes",
+        subtitle: "Capture observations without stopping your walk",
+        steps: [
+            "<strong>Real-Time Dictation:</strong> Tap the microphone on any field to talk instead of type. It uses Apple's on-device processing for 100% privacy.",
+            "<strong>Quick Observation Notes:</strong> Long-press the app icon on your home screen to record a note instantly. It automatically attaches to your next report.",
+            "<strong>Hands-Free:</strong> Perfect for capturing counts or site issues while you're still walking the job."
+        ]
+    },
+    {
+        icon: "📤", color: "#AF52DE", title: "Automated Filing & Export",
+        subtitle: "Professional organization with zero effort",
+        steps: [
+            "<strong>Maintenance-Free Naming:</strong> The app auto-populates the correct date sequence and file naming conventions.",
+            "<strong>Custom Export:</strong> Configure each job to save directly to iCloud/Files or send via Email immediately upon submission.",
+            "<strong>One-Tap PDF:</strong> Generates a clean, professional PDF that follows standard industry formats (DSA/HCAI) automatically."
+        ]
+    }
+];
+
+function populateTrainingGuides() {
+    const container = document.getElementById('trainingGuides');
+    container.innerHTML = trainingGuides.map(guide => `
+        <div style="background:#2a2a2a; border-radius:12px; padding:25px; border-left:4px solid ${guide.color}; margin-bottom:15px; text-align:left;">
+            <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
+                <div style="font-size:28px;">${guide.icon}</div>
+                <div>
+                    <h3 style="color:#fff; margin:0; font-size:1.2rem;">${guide.title}</h3>
+                    <p style="color:#888; margin:0; font-size:0.9rem;">${guide.subtitle}</p>
+                </div>
+            </div>
+            <div style="margin-left:43px;">
+                ${guide.steps.map(step => `
+                    <div style="margin-bottom:12px; color:#ccc; font-size:0.95rem; line-height:1.4;">
+                        ${step}
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+function openTrainingModal() {
+    document.getElementById('trainingModal').style.display = 'block';
+    populateTrainingGuides();
+    document.body.style.overflow = 'hidden';
+}
+
+function closeTrainingModal() {
+    document.getElementById('trainingModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function openVideoModal() {
+    document.getElementById('videoModal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeVideoModal() {
+    document.getElementById('videoModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function openBetaSignup() {
+    // Keeps your existing function hook ready
+    alert("Beta signup form coming soon!"); 
+}
+
+// Close modals when clicking outside
+document.addEventListener('click', function(e) {
+    if (e.target.id === 'trainingModal') closeTrainingModal();
+    if (e.target.id === 'videoModal') closeVideoModal();
+});
 </script>
 
 </body>
