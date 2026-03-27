@@ -38,6 +38,32 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; margin: 0; background
 .bio-stack h2 { color: #5a8fc0; font-size: 1.8rem; margin-bottom: 12px; }
 .bio-stack p { font-size: 1.1rem; text-align: left; margin-bottom: 15px; color: #ccc; }
 .text-links { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; align-items: center; }
+
+/* ═══ TIME COMPARISON SECTION ═══ */
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 40px 0; }
+.compare-col h3 { font-size: 1.3rem; font-weight: 800; margin: 0 0 20px 0; }
+.compare-col h3.old { color: #ef4444; }
+.compare-col h3.new { color: #22c55e; }
+.task-bar { margin-bottom: 14px; }
+.task-bar .task-label { display: flex; justify-content: space-between; font-size: 0.85rem; color: #888; margin-bottom: 4px; }
+.task-bar .bar { height: 36px; border-radius: 8px; display: flex; align-items: center; padding: 0 12px; font-size: 0.85rem; font-weight: 700; }
+.bar-old { background: #3d1515; color: #f09595; }
+.bar-new { background: #0a2e1a; color: #86efac; }
+.bar-auto { background: #0a2e1a; color: #22c55e; font-style: italic; }
+.compare-total { margin-top: 16px; padding-top: 16px; border-top: 1px solid #333; display: flex; align-items: center; gap: 12px; }
+.compare-total .num { font-size: 2.4rem; font-weight: 800; line-height: 1; }
+.compare-total .label { font-size: 0.9rem; color: #888; line-height: 1.3; }
+.savings-banner { background: #1a1a1a; border: 2px solid #22c55e; border-radius: 15px; padding: 30px; text-align: center; margin: 30px 0 50px; }
+.savings-banner .big { font-size: 3.5rem; font-weight: 800; color: #22c55e; line-height: 1; margin-bottom: 8px; }
+.savings-banner .sub { font-size: 1.1rem; color: #ccc; }
+.enterprise-cards { display: flex; flex-direction: column; gap: 20px; margin: 40px 0; }
+.ent-card { background: #1a1a1a; padding: 30px 25px; border-radius: 15px; border: 1px solid #333; border-left: 4px solid #5a8fc0; }
+.ent-card h3 { color: #5a8fc0; margin: 0 0 10px 0; font-size: 1.3rem; }
+.ent-card p { margin: 0; color: #ccc; font-size: 1.05rem; }
+
+@media(max-width: 600px) {
+    .compare-grid { grid-template-columns: 1fr; }
+}
 @media(min-width: 768px) {
     body { font-size: 18px; }
     .hero h1 { font-size: 4rem; }
@@ -56,8 +82,7 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; margin: 0; background
     <h1>Your Report. Done in 3 Minutes.</h1>
     <p class="tagline">Stop doing the same job twice.</p>
     <p class="subtext">Build your daily report as you work. Upload your form, dictate notes, snap photos, hit submit. Done before you leave the site.</p>
-    <div style="margin-bottom:12px;"><a href="mailto:support@mydailyreports.org?subject=Beta%20Access%20Request" class="btn">Request Beta Access</a></div>
-    <div style="font-size:0.9rem;color:#888;margin-top:8px;">Currently in closed beta &mdash; by invitation only</div>
+    <div style="margin-bottom:12px;"><a href="https://app.mydailyreports.org" class="btn">Get Started</a></div>
 </div>
 <div class="container">
 
@@ -96,6 +121,107 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; margin: 0; background
         </div>
     </div>
 
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- TIME COMPARISON + ENTERPRISE SECTION            -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <h2 class="section-title">What One Inspector's Day Looks Like</h2>
+
+    <div class="compare-grid">
+        <div class="compare-col">
+            <h3 class="old">The old way</h3>
+            <div class="task-bar">
+                <div class="task-label"><span>Write report at home</span><span>45 min</span></div>
+                <div class="bar bar-old" style="width:100%">45 min</div>
+            </div>
+            <div class="task-bar">
+                <div class="task-label"><span>Upload photos one at a time</span><span>15 min</span></div>
+                <div class="bar bar-old" style="width:33%">15 min</div>
+            </div>
+            <div class="task-bar">
+                <div class="task-label"><span>Attach PDFs page by page</span><span>10 min</span></div>
+                <div class="bar bar-old" style="width:22%">10 min</div>
+            </div>
+            <div class="task-bar">
+                <div class="task-label"><span>Fill out time card</span><span>10 min</span></div>
+                <div class="bar bar-old" style="width:22%">10 min</div>
+            </div>
+            <div class="task-bar">
+                <div class="task-label"><span>Upload to file storage</span><span>5 min</span></div>
+                <div class="bar bar-old" style="width:11%">5 min</div>
+            </div>
+            <div class="compare-total">
+                <div class="num" style="color:#ef4444;">85</div>
+                <div class="label">minutes per day<br>per inspector</div>
+            </div>
+        </div>
+
+        <div class="compare-col">
+            <h3 class="new">With MDR</h3>
+            <div class="task-bar">
+                <div class="task-label"><span>Fill report on your phone</span><span>10 min</span></div>
+                <div class="bar bar-new" style="width:22%">10 min</div>
+            </div>
+            <div class="task-bar">
+                <div class="task-label"><span>Bulk photo upload</span><span>1 min</span></div>
+                <div class="bar bar-new" style="width:5%;min-width:56px;">1 min</div>
+            </div>
+            <div class="task-bar">
+                <div class="task-label"><span>Attach PDFs</span><span>1 min</span></div>
+                <div class="bar bar-new" style="width:5%;min-width:56px;">1 min</div>
+            </div>
+            <div class="task-bar">
+                <div class="task-label"><span>Time card</span><span>0 min</span></div>
+                <div class="bar bar-auto" style="width:5%;min-width:56px;">auto</div>
+            </div>
+            <div class="task-bar">
+                <div class="task-label"><span>File storage</span><span>0 min</span></div>
+                <div class="bar bar-auto" style="width:5%;min-width:56px;">auto</div>
+            </div>
+            <div class="compare-total">
+                <div class="num" style="color:#22c55e;">12</div>
+                <div class="label">minutes per day<br>per inspector</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="savings-banner">
+        <div class="big">86%</div>
+        <div class="sub">less time on paperwork &mdash; 73 minutes back in every inspector's day</div>
+    </div>
+
+    <h2 class="section-title">Replace the Software That Slows You Down</h2>
+    <p style="text-align:center; color:#aaa; font-size:1.1rem; margin: -10px 0 40px; max-width:600px; margin-left:auto; margin-right:auto;">Legacy reporting tools were built by software companies. MDR was built by an inspector. We don't force you into someone else's workflow &mdash; we build around yours.</p>
+
+    <div class="enterprise-cards">
+        <div class="ent-card">
+            <h3>Your Exact Form, Recreated</h3>
+            <p>We take your company's report template and rebuild it as a precision PDF generator. Every field, every logo, every checkbox &mdash; exactly where your clients expect it. No generic templates. No compromises.</p>
+        </div>
+        <div class="ent-card">
+            <h3>Automatic Time Cards</h3>
+            <p>Hours from daily reports flow directly into weekly time cards. No double entry, no spreadsheets, no chasing down inspectors on Friday afternoon.</p>
+        </div>
+        <div class="ent-card">
+            <h3>File Storage Integration</h3>
+            <p>Finished reports push automatically to Box, Google Drive, or wherever your company stores documents. One less thing your team has to think about.</p>
+        </div>
+        <div class="ent-card">
+            <h3>Built for the Field</h3>
+            <p>Works on any phone, any tablet, any browser. No app store download. No desktop required. Your inspector fills it out on site and submits before they drive away.</p>
+        </div>
+    </div>
+
+    <div style="background:#1a1a1a; padding:40px 30px; border-radius:15px; text-align:center; border: 1px solid #333; margin: 40px 0 60px;">
+        <h2 style="color:#fff; font-size: 1.5rem; margin:0 0 12px 0;">Running a team of 10, 50, or 200 inspectors?</h2>
+        <p style="font-size: 1.05rem; color: #aaa; margin: 0 0 25px 0;">We'll build a custom deployment around your forms, your workflow, and your existing systems. Same app your guys already know how to use &mdash; just configured for your operation.</p>
+        <a href="mailto:support@mydailyreports.org" class="btn" style="max-width:400px;">Talk to Jesse</a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- END ENTERPRISE SECTION                          -->
+    <!-- ═══════════════════════════════════════════════ -->
+
     <h2 class="section-title">See It in Action</h2>
     <div style="display:flex;flex-direction:column;gap:20px;margin:40px 0;">
         <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:15px;border:1px solid #333;">
@@ -132,9 +258,9 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; margin: 0; background
     </div>
 
     <div style="background:#1a1a1a; padding:40px 30px; border-radius:15px; text-align:center; border: 2px solid #e8742a; margin-bottom: 50px;">
-        <h2 style="color:#fff; font-size: 1.6rem; margin:0 0 12px 0;">Interested?</h2>
-        <p style="font-size: 1.05rem; color: #ccc; margin: 0 0 25px 0;">We're in closed beta. Request access and we'll get you set up.</p>
-        <a href="mailto:support@mydailyreports.org?subject=Beta%20Access%20Request" class="btn">Request Beta Access</a>
+        <h2 style="color:#fff; font-size: 1.6rem; margin:0 0 12px 0;">Ready to Try It?</h2>
+        <p style="font-size: 1.05rem; color: #ccc; margin: 0 0 25px 0;">Create your free account and submit your first report today.</p>
+        <a href="https://app.mydailyreports.org" class="btn">Get Started</a>
         <div class="text-links" style="margin-top:20px;">
             <button class="btn-outline" onclick="openTrainingModal()">Training Guides</button>
             <button class="btn-outline" onclick="openVideoModal()">Watch Videos</button>
